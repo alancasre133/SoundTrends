@@ -275,7 +275,7 @@ Future<List<String>> getSongImages(String accessToken, List<String> songIds) asy
                                 var token = await getSpotifyAccesToken();
                                 log("hola");
                                 log(token);
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => const home(token: 'BQATbUNYMO5ZKYMKoU5Ycko4zf1po3kZVBdb3ZKaqIb-1ibe6FLGF-4ccrGdpuru0hL9IdIEcIeiq0uxXbGO1Ne_ypYilGohUCuTTeHr3LAssDJTPJCGhv4VycbbV-VByqusvpiUP8Fc9Z_H-YqlvbRpHqYh305HU3B_7okiIeYZ85C1D3-aqiUN4-nLTxbq8lCb5dzzhHZV1-LEPUq3gAUVvr0yq-oWVibZC8BrIkCQmdfBS0ZjeHI9ML__LSIKaIzP5A',)));
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => const home(token: 'BQCnwfRLGT-LLEfBE3Qjy-o3AQyTsXgoycJIrPpttXfv1R6KbBagvNmorddXwEcLmBBI0OfcEtR2-5rdui1eN0JaYeHdOTVSk2uEzqVQtXykB0lXmstpZW18r4G1EGVrxYmDWxtmQ039UhawslcZEQY-8PmYV7H1mpQ1Oq90ih37AT55yDqzGwKdLaEHmQ48L0PUbxR_VbRQoUGWPSzy4UU69-_is8NKR1F7p9QxUtr-98X2gg8gO4ryLNaZmVBVDIZRLg',)));
                               },
                               style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(

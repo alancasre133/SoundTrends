@@ -28,7 +28,6 @@ class _statsState extends State<stats> {
   @override
   void initState() {
     super.initState();
-    fetchdata('');
 
   }
 Future<void> fetchdata(token) async {
