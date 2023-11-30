@@ -17,10 +17,10 @@ class Login extends StatefulWidget {
   @override
   State<Login> createState() => _LoginState();
 }
-final String scope = 'user-top-read';
+final String scope = 'user-top-read user-library-read user-read-email user-read-recently-played';
 const String clientId = '88ea6c48037c435085bdaf8096ce4d5d';
 const String clientSecret = '536dc3a482ad4c5b9df75841e73f01c2';
-const String redirectUri = 'http://localhost:5173/callback';
+const String redirectUri = 'http://localhost/ejerciciosparcial3/spotify.php';
 final _server = HttpServer;
 class _LoginState extends State<Login> {
   @override
@@ -51,7 +51,24 @@ class _LoginState extends State<Login> {
 
     // Esperar el redireccionamiento y obtener el código de autorización
     // (Deberás implementar lógica adicional para manejar el redireccionamiento)
-    return 'CÓDIGO_OBTENIDO_DEL_REDIRECCIONAMIENTO';
+    final String tokenEndpoint = 'https://accounts.spotify.com/api/token';
+    final http.Response response = await http.post(
+    Uri.parse(tokenEndpoint),
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': 'Basic ${base64Encode(utf8.encode('$clientId:$clientSecret'))}',
+    },
+    body: {
+      'grant_type': 'authorization_code',
+      'code': 'AQB-IrHxBWVcl2FMdDlZB1pYv7xLjxrqjNRzA1UN97vyQJeZCrxAQb9Eba04juSWuAFosrCiK0uxyKco5-myTOQDecav1WRAGNMJkHnS6cjpB1QzAuSHy-HbQ0lJM7aWYaEuTizL0_ZEx0zhhdp7kz5Rsdc8GR92k9d43BqFhr2N5D2vZ1klDsU8nJ8LjRh2bclezDb8kGfrFfYQ8RXjF16JNFAQmS6idd2z_npf7z4L2AgzI_CwMr8Fq3MAV2YyG5t3pBMsipf3FNA_Kv6UMCEyeH-_BB9jjYDpJYtSmAiq',
+      'redirect_uri': redirectUri,
+    },
+  );
+Map<String, dynamic> responseData = json.decode(response.body);
+
+log('Token de Acceso: ${responseData['access_token']}');
+log('Token de Actualización: ${responseData['refresh_token']}');
+    return (responseData['access_token']==null) ? 'hola' :responseData['access_token'] ;
   }
   void authenticateWithSpotify() async {
     String clientId = '88ea6c48037c435085bdaf8096ce4d5d';
@@ -266,16 +283,10 @@ Future<List<String>> getSongImages(String accessToken, List<String> songIds) asy
                           Expanded(
                             child: ElevatedButton(
                               onPressed: () async {
-                                var aut = await _getAuthorizationCode();
+                                String aut = await _getAuthorizationCode();
                                 log(aut);
                                 log("yo");
-
-                                authenticateWithSpotify();
-                                log("adios");
-                                var token = await getSpotifyAccesToken();
-                                log("hola");
-                                log(token);
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => const home(token: 'BQCnwfRLGT-LLEfBE3Qjy-o3AQyTsXgoycJIrPpttXfv1R6KbBagvNmorddXwEcLmBBI0OfcEtR2-5rdui1eN0JaYeHdOTVSk2uEzqVQtXykB0lXmstpZW18r4G1EGVrxYmDWxtmQ039UhawslcZEQY-8PmYV7H1mpQ1Oq90ih37AT55yDqzGwKdLaEHmQ48L0PUbxR_VbRQoUGWPSzy4UU69-_is8NKR1F7p9QxUtr-98X2gg8gO4ryLNaZmVBVDIZRLg',)));
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => home(token: aut,)));
                               },
                               style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(

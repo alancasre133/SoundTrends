@@ -28,11 +28,43 @@ class _statsState extends State<stats> {
   @override
   void initState() {
     super.initState();
-
+    totalhours(widget.token);
   }
+Future<double> totalhours(token) async {
+  final DateTime now = DateTime.now();
+  final DateTime fourWeeksAgo = now.subtract(Duration(days: 28));
+
+  final String endpoint = 'https://api.spotify.com/v1/me/player/recently-played?after=${fourWeeksAgo.toIso8601String()}';
+
+  final http.Response response = await http.get(
+    Uri.parse(endpoint),
+    headers: {'Authorization': 'Bearer $token'},
+  );
+
+  if (response.statusCode == 200) {
+    final Map<String, dynamic> data = json.decode(response.body);
+    final List<dynamic> items = data['items'];
+
+    double totalHours = 0;
+
+    for (var item in items) {
+      final int durationMs = item['track']['duration_ms'];
+      final double durationHours = durationMs / (1000 * 60 * 60); // Convertir a horas
+      totalHours += durationHours;
+    }
+
+    log('Horas totales escuchadas en las últimas 4 semanas: $totalHours');
+    return totalHours;
+  } else {
+    
+    log('Error al obtener el historial de reproducción: ${response.statusCode}');
+    return 0;
+  }
+
+}
 Future<void> fetchdata(token) async {
-    final recentracks = await getRecentTracks(widget.token);
-    await getGenresFromRecentTracks(widget.token, recentracks);
+    
+    await totalhours(token);
 }
 Future<List<Map<String, dynamic>>> getRecentTracks(String accessToken) async {
   final response = await http.get(
