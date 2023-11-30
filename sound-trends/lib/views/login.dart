@@ -18,8 +18,8 @@ class Login extends StatefulWidget {
   State<Login> createState() => _LoginState();
 }
 final String scope = 'user-top-read user-library-read user-read-email user-read-recently-played';
-const String clientId = '88ea6c48037c435085bdaf8096ce4d5d';
-const String clientSecret = '536dc3a482ad4c5b9df75841e73f01c2';
+const String clientId = 'bbb255f4913a438bbe697d0c7177671d';
+const String clientSecret = '82a31d1531f14d59a7eb832061fe41db';
 const String redirectUri = 'http://localhost/ejerciciosparcial3/spotify.php';
 final _server = HttpServer;
 class _LoginState extends State<Login> {
@@ -60,7 +60,7 @@ class _LoginState extends State<Login> {
     },
     body: {
       'grant_type': 'authorization_code',
-      'code': 'AQB-IrHxBWVcl2FMdDlZB1pYv7xLjxrqjNRzA1UN97vyQJeZCrxAQb9Eba04juSWuAFosrCiK0uxyKco5-myTOQDecav1WRAGNMJkHnS6cjpB1QzAuSHy-HbQ0lJM7aWYaEuTizL0_ZEx0zhhdp7kz5Rsdc8GR92k9d43BqFhr2N5D2vZ1klDsU8nJ8LjRh2bclezDb8kGfrFfYQ8RXjF16JNFAQmS6idd2z_npf7z4L2AgzI_CwMr8Fq3MAV2YyG5t3pBMsipf3FNA_Kv6UMCEyeH-_BB9jjYDpJYtSmAiq',
+      'code': 'AQAm3NbLVX81Pe6XE9Z8d-g_5Ov4_2MmxdpxCJWZ2D-Va-34_LIep-Ek2S0Qb7Oe_X2U833b1CRDVxly-tkV6h6cVY2aeDnZMvx0kfpgR6AHPmNJpVRXnONNw364uGpARcFJlNSa5BfSd2GF5nb5sD1_WgTvHzusaf11-WtxPSNHgz0dP1uWEdeHAXXBSB5GQVT0mBi5T4Y8MYy5oGrW_tGxD_wmCcl0BkgXytFJPjGJSTzx9scKHJIMzKeruybP3LsOiwEkvlQ2uO1waUiyEkoVxEmZ8DN5VLcSTHFdBdYT',
       'redirect_uri': redirectUri,
     },
   );
